@@ -1,0 +1,1359 @@
+Amazon Detective helps you analyze, investigate, and quickly identify the root cause of security findings or suspicious activities. Detective automatically collects log data from your AWS resources. It then uses machine learning, statistical analysis, and graph theory to generate visualizations that help you to conduct faster and more efficient security investigations. The Detective prebuilt data aggregations, summaries, and context help you to quickly analyze and determine the nature and extent of possible security issues.
+
+With Detective, you can access up to a year of historical event data. This data is available through a set of visualizations that show changes in the type and volume of activity over a selected time window. Detective links these changes to GuardDuty findings. For more information on source data in Detective, see Source data used in a Detective behavior graph.
+
+By automatically aggregating data and providing visual tools, Amazon Detective lets you to conduct faster, more efficient security investigations. You can quickly analyze potential issues and determine the scope of security threats.
+Topics
+
+    Features of Amazon Detective
+    Accessing Amazon Detective
+    Pricing for Amazon Detective
+    How does Detective work?
+    Who uses Detective?
+    Related services
+
+Features of Amazon Detective
+
+Here are some of the key ways that Amazon Detective is helpful for investigating suspicious activity in your AWS environment and analyze resources to identify the root cause of security issues.
+
+Detective finding groups
+
+    Detective finding groups lets you examine multiple activities as they relate to a potential security event. You can analyze the root cause for high severity GuardDuty findings using finding groups. If a threat actor is attempting to compromise your AWS environment, they typically perform a sequence of actions that generate multiple security findings and unusual behaviors.
+
+    The finding groups page in Detective displays all the related finding groups extracted from your behavior graph. For more information about how you can leverage finding groups to analyze the root cause of security findings, see Analyzing finding groups in Detective.
+
+    Detective provides an interactive visualization of each finding group to help you investigate security issues faster and more thoroughly. The visualization is designed to display entities and findings involved in a security incident, making it easier to understand connections and root causes. help you investigate issues faster and more thoroughly with less effort. The Finding group Visualization panel displays the findings and entities involved in a finding group.
+Detective Investigation to triage findings
+
+    With Detective Investigation you can investigate IAM users and IAM roles using indicators of compromise, which can help you determine if a resource is involved in a security incident. An indicator of compromise (IOC) is an artifact observed in or on a network, system, or environment that can (with a high level of confidence) identify malicious activity or a security incident. With Detective investigations, you can maximize efficiency, focus on the security threats, and strengthen incidence response capabilities.
+
+    Detective Investigation uses machine learning models and threat intelligence to surface only the most critical, suspicious issues, allowing you to focus on high-level investigations. It automatically analyzes resources in your AWS environment to identify potential indicators of compromise or suspicious activity. This lets you identify patterns and comprehend which resources are impacted by security events, offering a proactive approach to threat identification and mitigation.
+
+    You can use start a Detective Investigation from the Detective console by Running a Detective Investigation. To run an investigation programmatically, use the StartInvestigation operation of the Detective API. To run an investigation using the AWS Command Line Interface (AWS CLI) run the start-investigation
+
+    command.
+Detective integration with Amazon Security Lake
+
+    Detective integrates with Amazon Security Lake, which means that you can query and retrieve the raw log data stored by Security Lake. With this integration, you can collect logs and events from the following sources which Security Lake natively supports.
+
+        AWS CloudTrail management events version 1.0 and after
+
+        Amazon Virtual Private Cloud (Amazon VPC) Flow Logs version 1.0 and after
+
+        Amazon Elastic Kubernetes Service (Amazon EKS) Audit Log version 2.0
+
+    After you integrate Detective with Security Lake, Detective begins pulling raw logs from Security Lake related to AWS CloudTrail management events and Amazon VPC Flow Logs. You can query raw logs to view the logs and events in Detective.
+
+Investigate VPC flow volume
+
+    With Detective you can interactively examine the activity details of the virtual private cloud (VPC) network flows of your Amazon Elastic Compute Cloud (Amazon EC2) instances and Kubernetes pods. Detective automatically collects VPC flow logs from your monitored accounts, aggregates them by EC2 instance, and presents visual summaries and analytics about these network flows.
+
+    For an EC2 instance, the activity details for Overall VPC flow volume show the interactions between the EC2 instance and IP addresses during a selected time range.
+
+    For a Kubernetes pod, Overall VPC flow volume displays the overall volume of bytes into and out of the Kubernetes pod's assigned IP address for all destination IP addresses.
+
+Accessing Amazon Detective
+
+Amazon Detective is available in most AWS Regions. For a list of Regions where Detective is currently available, see Amazon Detective endpoints and quotas in the AWS General Reference. For information about managing AWS Regions for your AWS account, see Specifying which AWS Regions your account can use in the AWS Account Management Reference Guide.
+
+In each Region, you can work with Detective in any of the following ways.
+
+AWS Management Console
+
+    The AWS Management Console is a browser-based interface that you can use to create and manage AWS resources. As part of that console, the Amazon Detective console provides access to your Detective account, data, and resources. You can perform any Detective task by using the Detective console—review potential security threats and analyze, investigate, and identify the root cause of security findings.
+AWS command line tools
+
+    With AWS command line tools, you can issue commands at your system's command line to perform Detective tasks and AWS tasks. Using the command line can be faster and more convenient than using the console. The command line tools are also useful if you want to build scripts that perform tasks.
+
+    AWS provides two sets of command line tools: the AWS Command Line Interface (AWS CLI) and the AWS Tools for PowerShell. For information about installing and using the AWS CLI, see the AWS Command Line Interface User Guide. For information about installing and using the Tools for PowerShell, see the AWS Tools for PowerShell User Guide.
+AWS SDKs
+
+    AWS provides SDKs that consist of libraries and sample code for various programming languages and platforms—for example, Java, Go, Python, C++, and .NET. The SDKs provide convenient, programmatic access to Detective and other AWS services. They also handle tasks such as cryptographically signing requests, managing errors, and retrying requests automatically. For information about installing and using the AWS SDKs, see Tools to Build on AWS
+
+    .
+Amazon Detective REST API
+
+    The Amazon Detective REST API gives you comprehensive, programmatic access to your Detective account, data, and resources. With this API, you can send HTTPS requests directly to Detective. However, unlike the AWS command line tools and SDKs, use of this API requires your application to handle low-level details such as generating a hash to sign a request. For information about this API, see the Detective API Reference.
+
+Pricing for Amazon Detective
+
+As with other AWS products, there are no contracts or minimum commitments for using Amazon Detective.
+
+Detective pricing is based on several dimensions— and charges a tiered flat rate per GB for all data regardless of the source. For more information, see Amazon Detective pricing
+
+.
+
+To help you understand and forecast the cost of using Detective, Detective provides estimated usage costs for your account. You can review these estimates on the Amazon Detective console and access them with the Amazon Detective API. Depending on how you use the service, you might incur additional costs for using other AWS services in combination with certain Detective features, such as Security Lake integration and Detective Investigations.
+
+When you enable Detective for the first time, your AWS account is automatically enrolled in the 30-day free trial of Detective. This includes individual accounts that are enabled as part of an organization in AWS Organizations. During the free trial, there’s no charge for using Detective in the applicable AWS Region.
+
+To help you understand and forecast the cost of using Detective after the free trial ends, Detective provides you with estimated usage costs based on your use of Detective during the trial. Your usage data also indicates the amount of time that remains before your free trial ends. You can review your Detective account's usage related data on the Amazon Detective console and access it with the Amazon Detective API.
+How does Detective work?
+
+Detective automatically extracts time-based events such as login attempts, API calls, and network traffic from AWS CloudTrail and Amazon VPC flow logs. It also ingests findings detected by GuardDuty.
+
+From those events, Detective uses machine learning and visualization to create a unified, interactive view of your resource behaviors and the interactions between them over time. You can explore this behavior graph to examine disparate actions such as failed logon attempts or suspicious API calls. You can also see how these actions affect resources such as AWS accounts and Amazon EC2 instances. You can adjust the behavior graph's scope and timeline for a variety of tasks:
+
+    Rapidly investigate any activity that falls outside the norm.
+
+    Identify patterns that may indicate a security issue.
+
+    Understand all of the resources affected by a finding.
+
+Detective tailored visualizations provide a baseline for and summarize the account information. These findings can help answer questions such as "Is this an unusual API call for this role?" Or "Is this spike in traffic from this instance expected?"
+
+With Detective, you don't have to organize any data or develop, configure, or tune your own queries and algorithms. There are no upfront costs and you pay only for the events analyzed, with no additional software to deploy or other feeds to subscribe to.
+Who uses Detective?
+
+When an account enables Detective, it becomes the administrator account for a behavior graph. A behavior graph is a linked set of extracted and analyzed data from one or more AWS accounts. Administrator accounts invite member accounts to contribute their data to the administrator account's behavior graph.
+
+Detective is also integrated with AWS Organizations. Your organization management account designates a Detective administrator account for the organization. The Detective administrator account enables organization accounts as member accounts in the organization behavior graph.
+
+For information about how Detective uses source data from behavior graph accounts, see Source data used in a Detective behavior graph.
+
+For information on how administrator accounts manage behavior graphs, see Managing accounts in Detective. For information on how member accounts manage their behavior graph invitations and memberships, see For member accounts: Managing behavior graph invitations and memberships.
+
+The administrator account uses the analytics and visualizations generated from the behavior graph to investigate AWS resources and GuardDuty findings. Using the Detective integrations with GuardDuty and AWS Security Hub, you can pivot from a GuardDuty finding in these services directly into the Detective console.
+
+A Detective investigation focuses on the activity that is connected to the involved AWS resources. For an overview of the investigation process in Detective, see How Amazon Detective is used for investigation in Detective User Guide.
+Related services
+
+To further secure your data, workloads, and applications in AWS, consider using the following AWS services in combination with Amazon Detective.
+
+AWS Security Hub
+
+    AWS Security Hub gives you a comprehensive view of the security state of your AWS resources and helps you check your AWS environment against security industry standards and best practices. It does this partly by consuming, aggregating, organizing, and prioritizing your security findings from multiple AWS services (including Detective) and supported AWS Partner Network (APN) products. Security Hub helps you analyze your security trends and identify the highest priority security issues across your AWS environment.
+
+    To learn more about Security Hub, see the AWS Security Hub User Guide.
+Amazon GuardDuty
+
+    Amazon GuardDuty is a security monitoring service that analyzes and processes certain types of AWS logs, such as AWS CloudTrail data event logs for Amazon S3 and CloudTrail management event logs. It uses threat intelligence feeds, such as lists of malicious IP addresses and domains, and machine learning to identify unexpected and potentially unauthorized and malicious activity within your AWS environment.
+
+    To learn more about GuardDuty, see the Amazon GuardDuty User Guide.
+
+Amazon Security Lake
+
+    Amazon Security Lake is a fully managed security data lake service. You can use Security Lake to automatically centralize security data from AWS environments, SaaS providers, on-premises sources, cloud sources, and third-party sources into a purpose-built data lake that's stored in your AWS account. Security Lake helps you analyze security data, so you can get a more complete understanding of your security posture across your entire organization. With Security Lake, you can also improve the protection of your workloads, applications, and data.
+
+    To learn more about Security Lake, see the Amazon Security Lake User Guide. To learn more about using Detective and Security Lake together, see Amazon Detective Integration with Amazon Security Lake.
+
+To learn about additional AWS security services, see Security, Identity, and Compliance on AWS.
+
+The following terms and concepts are important for understanding Amazon Detective and how it works.
+
+Administrator account
+
+    The AWS account that owns a behavior graph and that uses the behavior graph for investigation.
+
+    The administrator account invites member accounts to contribute their data to the behavior graph. For more information, see Managing invited member accounts in Detective.
+
+    For the organization behavior graph, the administrator account is the Detective administrator account that the organization management account designates. For more information, see Designating the Detective administrator for an organization. The Detective administrator account can enable any organization account as a member account in the organization behavior graph. For more information, see Managing organization accounts as Detective member accounts.
+
+    Administrator accounts can also view data usage for the behavior graph, and remove member accounts from the behavior graph.
+Autonomous System Organization (ASO)
+
+    The titled organization which is assigned an autonomous system. This autonomous system is a heterogenous network or a set of networks using similar routing logic and policies.
+Behavior graph
+
+    A linked set of data generated from incoming source data that is associated with one or more AWS accounts.
+
+    Each behavior graph uses the same structure of findings, entities, and relationships.
+Delegated administrator account (AWS Organizations)
+
+    In Organizations, the delegated administrator account for a service is able to manage the use of a service for the organization.
+
+    In Detective, the Detective administrator account is also the delegated administrator account, unless the Detective administrator account is the organization management account. The organization management account cannot be a delegated administrator account.
+
+    In Detective, self-delegation is allowed. An organization management account can delegate their own account to be the delegated administrator of Detective but this would be registered or remembered only in the scope of Detective and not organizations.
+Detective administrator account
+
+    The account designated by the organization management account to be the administrator account for the organization behavior graph in a Region. For more information, see Designating the Detective administrator for an organization.
+
+    Detective recommends that the organization management account chooses an account other than their account.
+
+    If the account is not the organization management account, then the Detective administrator account is also the delegated administrator account for Detective in Organizations.
+Detective source data
+
+    Processed, structured versions of information from the following types of feeds:
+
+        Logs from AWS services, such as AWS CloudTrail logs and Amazon VPC Flow Logs
+
+        GuardDuty findings
+
+    Detective uses the Detective source data to populate the behavior graph. Detective also stores copies of the Detective source data to support its analytics.
+Entity
+
+    An item extracted from the ingested data.
+
+    Each entity has a type, which identifies the type of object it represents. Examples of entity types include IP addresses, Amazon EC2 instances, and AWS users.
+
+    Entities can be AWS resources that you manage, or external IP addresses that have interacted with your resources.
+
+    For each entity, the source data is also used to populate entity properties. Property values can be extracted directly from source records or aggregated across multiple records.
+Finding
+
+    A security issue detected by Amazon GuardDuty.
+Finding group
+
+    A collection of related findings, entities, and evidence that may be related to the same event or security issue. Detective generates finding groups based on a built-in machine learning model.
+Detective evidence
+
+    Detective identifies additional evidence related to a finding group based on data in your behavior graph collected within the last 45 days. This evidence is presented as a finding with the severity value of Informational. Evidence provides supporting information that highlights an unusual activity or unknown behavior that is potentially suspicious when viewed within a finding group. An example of this might be newly observed geolocations or API calls observed within the scope time of a finding. At this time, these findings are only viewable in Detective and not sent to Security Hub.
+Finding overview
+
+    A single page that provides a summary of information about a finding.
+
+    A finding overview contains the list of involved entities for the findings. From the list, you can pivot to the profile for an entity.
+
+    A finding overview also contains a details panel that contains the finding attributes.
+High-volume entity
+
+    An entity that has connections to or from a large number of other entities during a time interval. For example, an EC2 instance might have connections from millions of IP addresses. The number of connections exceeds the threshold that Detective can accommodate.
+
+    When the current scope time contains a high-volume time interval, Detective notifies the user.
+
+    For more information, see Viewing details for high-volume entities in the Amazon Detective User Guide.
+Investigation
+
+    The process of triaging suspicious or interesting activity, determining its scope, getting to its underlying source or cause, and then determining how to proceed.
+Member account
+
+    An AWS account that an administrator account invited to contribute data to a behavior graph. In the organization behavior graph, a member account can be an organization account that the Detective administrator account enabled as a member account.
+
+    Member accounts that are invited can respond to the behavior graph invitation and remove their account from the behavior graph. For more information, see For member accounts: Managing behavior graph invitations and memberships.
+
+    Organization accounts cannot change their membership in the organization behavior graph.
+
+    All member accounts can also view usage information for their account across the behavior graphs that they contribute data to.
+
+    They have no other access to the behavior graph.
+Organization behavior graph
+
+    The behavior graph that is owned by the Detective administrator account. The organization management account designates the Detective administrator account. For more information, see Designating the Detective administrator for an organization.
+
+    In the organization behavior graph, the Detective administrator account controls whether an organization account is a member account. An organization account cannot remove itself from the organization behavior graph.
+
+    The Detective administrator account can also invite other accounts to the organization behavior graph.
+Profile
+
+    A single page that provides a collection of data visualizations related to activity for an entity.
+
+    For findings, profiles help analysts to determine whether the finding is of genuine concern or a false positive.
+
+    Profiles provide information to support an investigation into a finding or for a general hunt for suspicious activity.
+Profile panel
+
+    A single visualization on a profile. Each profile panel is intended to help answer a specific question or questions to assist an analyst in an investigation.
+
+    Profile panels can contain key-value pairs, tables, timelines, bar charts, or geolocation charts.
+Relationship
+
+    Activity that occurs between individual entities. Relationships are also extracted from the incoming source data.
+
+    Similar to an entity, a relationship has a type, which identifies the types of entities involved and the direction of the connection. An example of a relationship type is an IP address connecting to an Amazon EC2 instance.
+Scope time
+
+    The time window that is used to scope the data displayed on profiles.
+
+    The default scope time for a finding reflects the first and last times when the suspicious activity was observed.
+
+    The default scope time for an entity profile is the previous 24 hours.
+
+This tutorial provides an introduction to Amazon Detective. You'll learn how to enable Detective for your AWS account. You'll also learn how to verify that Detective has begun to ingest and extract data from your AWS account into your behavior graph.
+
+When you enable Amazon Detective, Detective creates a Region-specific behavior graph that has your account as its administrator account. This is initially the only account in the behavior graph. The administrator account can then invite other AWS accounts to contribute their data to the behavior graph. See Managing accounts in Detective.
+
+Enabling Detective in a Region for the first time also begins a 30-day free trial for the behavior graph. If the account disables Detective and then enables it again, no free trial is available. See About the free trial for behavior graphs.
+
+After the free trial, each account in the behavior graph is billed for the data they contribute to it. The administrator account can track the usage and see the total projected cost for a typical 30-day period for their entire behavior graph. For more information, see Monitoring usage for a Detective administrator account. Member accounts can track the usage and projected cost for the behavior graphs that they belong to. For more information, see Monitoring usage for a Detective member account.
+Topics
+
+    Setting up your AWS account
+    Prerequisites to enable Detective
+    Recommendations to enable Detective
+    Enabling Detective
+
+Before you can enable Amazon Detective, you must have an AWS account. If you do not have an AWS account, complete the following steps to create one.
+Sign up for an AWS account
+
+If you do not have an AWS account, complete the following steps to create one.
+To sign up for an AWS account
+
+    Open https://portal.aws.amazon.com/billing/signup
+
+    .
+
+    Follow the online instructions.
+
+    Part of the sign-up procedure involves receiving a phone call and entering a verification code on the phone keypad.
+
+    When you sign up for an AWS account, an AWS account root user is created. The root user has access to all AWS services and resources in the account. As a security best practice, assign administrative access to a user, and use only the root user to perform tasks that require root user access.
+
+AWS sends you a confirmation email after the sign-up process is complete. At any time, you can view your current account activity and manage your account by going to https://aws.amazon.com/
+
+and choosing My Account.
+Create a user with administrative access
+
+After you sign up for an AWS account, secure your AWS account root user, enable AWS IAM Identity Center, and create an administrative user so that you don't use the root user for everyday tasks.
+Secure your AWS account root user
+
+    Sign in to the AWS Management Console
+
+    as the account owner by choosing Root user and entering your AWS account email address. On the next page, enter your password.
+
+    For help signing in by using root user, see Signing in as the root user in the AWS Sign-In User Guide.
+
+    Turn on multi-factor authentication (MFA) for your root user.
+
+    For instructions, see Enable a virtual MFA device for your AWS account root user (console) in the IAM User Guide.
+
+Create a user with administrative access
+
+    Enable IAM Identity Center.
+
+    For instructions, see Enabling AWS IAM Identity Center in the AWS IAM Identity Center User Guide.
+
+    In IAM Identity Center, grant administrative access to a user.
+
+    For a tutorial about using the IAM Identity Center directory as your identity source, see Configure user access with the default IAM Identity Center directory in the AWS IAM Identity Center User Guide.
+
+Sign in as the user with administrative access
+
+    To sign in with your IAM Identity Center user, use the sign-in URL that was sent to your email address when you created the IAM Identity Center user.
+
+    For help signing in using an IAM Identity Center user, see Signing in to the AWS access portal in the AWS Sign-In User Guide.
+
+Assign access to additional users
+
+    In IAM Identity Center, create a permission set that follows the best practice of applying least-privilege permissions.
+
+    For instructions, see Create a permission set in the AWS IAM Identity Center User Guide.
+
+    Assign users to a group, and then assign single sign-on access to the group.
+
+    For instructions, see Add groups in the AWS IAM Identity Center User Guide.
+
+Make sure that the following requirements are met before enabling Detective.
+Granting the required Detective permissions
+
+Before you can enable Detective, you must make sure that your IAM principal has the required Detective permissions. The principal can be an existing user or role that you are already using, or you can create a new user or role to use for Detective.
+
+When you sign up for Amazon Web Services (AWS), your account is automatically signed up for all AWS services, including Amazon Detective. However, to enable and use Detective, you first have to set up permissions that allow you to access the Amazon Detective console and API operations. You or your administrator can do this by using AWS Identity and Access Management (IAM) to attach the AmazonDetectiveFullAccess managed policy to your IAM principal, which grants access to all Detective actions. Without these IAM permissions, you might view the Get started with Detective page in the AWS console. As a result, the console will not display any active graphs until these permissions are added, even if the service is enabled.
+Supported AWS Command Line Interface version
+To use the AWS CLI to perform Detective tasks, the minimum required version is 1.16.303.
+
+Consider following these recommendations before enabling Detective
+Recommended alignment with GuardDuty and AWS Security Hub
+
+If you are enrolled in GuardDuty and AWS Security Hub, we recommend that your account be an administrator account for those services. If the administrator accounts are the same for all three services, then the following integration points work seamlessly.
+
+    In GuardDuty or Security Hub, when viewing details for a GuardDuty finding, you can pivot from the finding details to the Detective finding profile.
+
+    In Detective, when investigating a GuardDuty finding, you can choose the option to archive that finding.
+
+If you have different administrator accounts for GuardDuty and Security Hub, we recommend that you align the administrator accounts based on the service you use more frequently.
+
+    If you use GuardDuty more frequently, then enable Detective using the GuardDuty administrator account.
+
+    If you use AWS Organizations to manage accounts, designate the GuardDuty administrator account as the Detective administrator account for the organization.
+
+    If you use Security Hub more frequently, then enable Detective using the Security Hub administrator account.
+
+    If you use Organizations to manage accounts, designate the Security Hub administrator account as the Detective administrator account for the organization.
+
+If you cannot use the same administrator accounts across all of the services, then after you enable Detective, you can optionally create a cross-account role. This role grants an administrator account access to other accounts.
+
+For information about how IAM supports this type of role, see Providing access to an IAM user in another AWS account that you own in the IAM User Guide.
+Recommended update to the GuardDuty CloudWatch notification frequency
+
+In GuardDuty, detectors are configured with an Amazon CloudWatch notification frequency for reporting subsequent occurrences of a finding. This includes sending notifications to Detective.
+
+By default, the frequency is six hours. This means that even if a finding recurs many times, the new occurrences are not reflected in Detective until up to six hours later.
+
+To reduce the amount of time it takes for Detective to receive these updates, we recommend that the GuardDuty administrator account changes the setting on their detectors to 15 minutes. Note that changing the configuration has no effect on the cost of using GuardDuty.
+
+For information about setting the notification frequency, see Monitoring GuardDuty Findings with Amazon CloudWatch Events in the Amazon GuardDuty User Guide.
+
+You can enable Detective from the Detective console, the Detective API, or the AWS Command Line Interface.
+
+You can only enable Detective once in each Region. If you already are the administrator account for a behavior graph in the Region, then you cannot enable Detective again in that Region.
+
+Console
+To enable Detective (console)
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+.
+
+Choose Get started.
+
+On the Enable Amazon Detective page, Align administrator accounts (recommended) explains the recommendation to align the administrator accounts between Detective and Amazon GuardDuty and AWS Security Hub. See Recommended alignment with GuardDuty and AWS Security Hub.
+
+The Attach IAM policy button takes you directly to the IAM console and opens up the recommended policy, You have the option to attach the recommended policy to the principal you use for Detective. If you do not have permissions to operate in the IAM console, within the Required permissions you can copy the policy Amazon Resource Name (ARN) to provide it to your IAM administrator. They can attach the policy on your behalf.
+
+Confirm that the required IAM policy is in place.
+
+The Add tags section allows you to add tags to the behavior graph.
+
+To add a tag, do the following:
+
+    Choose Add new tag.
+
+    For Key, enter the name of the tag.
+
+    For Value, enter the value of the tag.
+
+To remove a tag, choose the Remove option for that tag.
+
+Choose Enable Amazon Detective.
+
+After you enable Detective, you can invite member accounts to your behavior graph.
+
+To navigate to the Account management page, choose Add members now. For information about inviting member accounts, see Managing invited member accounts in Detective.
+
+Detective API, AWS CLI
+
+You can enable Amazon Detective from the Detective API or the AWS Command Line Interface.
+To enable Detective (Detective API, AWS CLI)
+
+    Detective API: Use the CreateGraph operation.
+
+    AWS CLI: At the command line, run the create-graph command.
+
+aws detective create-graph --tags '{"tagName": "tagValue"}'
+
+The following command enables Detective and sets the value of the Department tag to Security.
+
+aws detective create-graph --tags '{"Department": "Security"}'
+
+Python script on GitHub
+
+
+You can enable Detective across Regions usin the Detective Python script on GitHub.Detective provides an open-source script in GitHub that does the following:
+
+    Enables Detective for an administrator account in a specified list of Regions
+
+    Adds a provided list of member accounts to each of the resulting behavior graphs
+
+    Sends invitation emails to the member accounts
+
+    Automatically accepts the invitations for the member accounts
+
+For information about how to configure and use the GitHub scripts, see Using Detective Python scripts to manage accounts.
+
+Checking that Detective is ingesting data from your AWS account
+
+After you enable Detective, it begins to ingest and extract data from your AWS account into your behavior graph.
+
+For the initial extraction, data usually becomes available in the behavior graph within 2 hours.
+
+One way to check that Detective is extracting data is to look for example values on the Detective Search page.
+To check for example values on the Search page
+
+    Open the Amazon Detective console at https://console.aws.amazon.com/detective/.
+
+In the navigation pane, choose Search.
+
+From the Select type menu, choose a type of item.
+
+Examples from your data contains a sample set of identifiers of the selected type that are in your behavior graph data.
+
+If you can see example values, then you know that data is being ingested and extracted into your behavior graph.
+
+In Amazon Detective, you conduct investigations using data from a Detective behavior graph. In this section you can learn about the core data sources used in a Detective behavior graph and how Detective uses the source data to populate it.
+
+A behavior graph is a linked set of data generated from the Detective source data that is ingested from one or more Amazon Web Services (AWS) accounts.
+
+The behavior graph uses the source data to do the following.
+
+    Generate an overall picture of your systems, users, and the interactions among them over time
+
+    Perform more detailed analysis of specific activity to help you answer questions that arise as you conduct investigations
+
+    Correlate collections of findings, entities, and evidence that may be related to the same event or security issue.
+
+Note that all extraction, modeling, and analytics of behavior graph data occurs within the context of each individual behavior graph.
+
+Each behavior graph contains data from one or more accounts. When an account enables Detective, it becomes the administrator account for the behavior graph, and it chooses the member accounts for the behavior graph. A behavior graph can have up to 1,200 member accounts. For information about how an administrator account manages the member accounts in a behavior graph, see Managing accounts in Detective.
+Contents
+
+    How Detective populates a behavior graph
+    Training period for new Detective behavior graphs
+    Overview of the behavior graph data structure
+    Source data used in a Detective behavior graph
+
+To provide the raw data for investigations, Detective brings together data from across your AWS environment and beyond, including the following:
+
+    Log data, including Amazon Virtual Private Cloud (Amazon VPC) and AWS CloudTrail
+
+    Findings from Amazon GuardDuty
+
+    Findings from AWS Security Hub
+
+To learn more about the source data used in a behavior graph, see Source data used in a behavior graph.
+How Detective processes source data
+
+As new data comes in, Detective uses a combination of extraction and analytics to populate the behavior graph.
+Diagram showing the flow of incoming source data into Detective, where it is used to populate the behavior graph.
+Detective extraction
+
+Extraction is based on configured mapping rules. A mapping rule basically says, "Whenever you see this piece of data, use it in this specific way to update behavior graph data."
+
+For example, an incoming Detective source data record might include an IP address. If it does, Detective uses the information in that record to create a new IP address entity or update an existing IP address entity.
+Detective analytics
+
+Analytics are more complex algorithms that analyze the data to provide insight into activity that is associated with entities.
+
+For example, one type of Detective analytic analyzes how often activity occurs by running algorithms. For entities that make API calls, the algorithm looks for API calls that the entity doesn't normally use. The algorithm also looks for a large spike in the number of API calls.
+
+Analytic insights support investigations by providing answers to key analyst questions and are frequently used to populate finding and entity profile panels.
+
+Training period for new Detective behavior graphs
+
+One avenue of investigation for a finding is to compare the activity during the finding scope time to activity that occurred before the finding was detected. Activity that has not been seen before might be more likely to be suspicious.
+
+Some Amazon Detective profile panels highlight activity that was not observed during the time period before the finding. Several profile panels also display a baseline value to show the average activity during the 45 days before the scope time. Scope time is the summary of activity of an entity over time.
+
+As more data is extracted into your behavior graph, Detective develops a more accurate picture of what activity is normal in your organization and what activity is unusual.
+
+However, to create this picture, Detective needs access to at least two weeks of data. The maturity of the Detective analysis also increases with the number of accounts in the behavior graph.
+
+The first two weeks after you activate Detective are considered a training period. During this period, profile panels that compare scope time activity to earlier activity display a message that Detective is in a training period.
+
+During the trial period, Detective recommends that you add as many member accounts as you can to the behavior graph. This provides Detective with a larger pool of data, which allows it to generate a more accurate picture of the normal activity for your organization.
+
+Overview of the behavior graph data structure
+
+The behavior graph data structure defines the structure of the extracted and analyzed data. It also defines how the source data is mapped to the behavior graph.
+Types of elements in the behavior graph data structure
+
+The behavior graph data structure is made up of the following information elements.
+
+Entity
+
+    An entity represents an item extracted from the Detective source data.
+
+    Each entity has a type, which identifies the type of object it represents. Examples of entity types include IP addresses, Amazon EC2 instances, and AWS users.
+
+    For each entity, the source data is also used to populate entity properties. Property values might be extracted directly from source records or aggregated across multiple records.
+
+    Some properties consist of a single scalar or aggregated value. For example, for an EC2 instance, Detective tracks the type of instance and the total number of bytes processed.
+
+    Time series properties track activity over time. For example, for an EC2 instance, Detective tracks over time the unique ports that it used.
+Relationships
+
+    A relationship represents activity occurring between individual entities. Relationships are also extracted from the Detective source data.
+
+    Similar to an entity, a relationship has a type, which identifies the types of entities involved and the direction of the connection. An example of a relationship type is IP addresses connecting to EC2 instances.
+
+    For each individual relationship, such as a specific IP address connecting to a specific instance, Detective tracks the occurrences over time.
+
+Types of entities in the behavior graph data structure
+
+The behavior graph data structure consists of entity and relationship types that do the following:
+
+    Track the servers, IP addresses, and user agents being used
+
+    Track the AWS users, roles, and accounts being used
+
+    Track the network connections and authorizations that occur in your AWS environment
+
+The behavior graph data structure contains the following entity types.
+
+AWS account
+
+    AWS accounts that are present in the Detective source data.
+
+    For each account, Detective answers several questions:
+
+        What API calls has the account used?
+
+        What user agents has the account used?
+
+        What autonomous system organizations (ASOs) has the account used?
+
+        In what geographic locations has the account been active?
+
+AWS role
+
+    AWS roles that are present in the Detective source data.
+
+    For each role, Detective answers several questions:
+
+        What API calls has the role used?
+
+        What user agents has the role used?
+
+        What ASOs has the role used?
+
+        In what geographic locations has the role been active?
+
+        What resources have assumed this role?
+
+        What roles has this role assumed?
+
+        What role sessions have involved this role?
+
+AWS user
+
+    AWS users that are present in the Detective source data.
+
+    For each user, Detective answers several questions:
+
+        What API calls has the user used?
+
+        What user agents has the user used?
+
+        In what geographic locations has the user been active?
+
+        What roles has this user assumed?
+
+        What role sessions have involved this user?
+
+Federated user
+
+    Instances of a federated user. Examples of federated users include the following:
+
+        An identity that logs in using Security Assertion Markup Language (SAML)
+
+        An identity that logs in using web identity federation
+
+    For each federated user, Detective answers these questions:
+
+        What identity provider did the federated user authenticate with?
+
+        What was the audience of the federated user? The audience identifies the application that requested the web identity token of the federated user.
+
+        In what geographic locations has the federated user been active?
+
+        What user agents has the federated user used?
+
+        What ASOs has the federated user used?
+
+        What roles has this federated user assumed?
+
+        What role sessions have involved this federated user?
+
+EC2 instance
+
+    EC2 instances that are present in the Detective source data.
+
+    For EC2 instances, Detective answers several questions:
+
+        What IP addresses have communicated with the instance?
+
+        What ports have been used to communicate with the instance?
+
+        What volume of data has been sent to and from the instance?
+
+        What VPC contains the instance?
+
+        What API calls has the EC2 instance used?
+
+        What user agents has the EC2 instance used?
+
+        What ASOs has the EC2 instance used?
+
+        In what geographic locations has the EC2 instance been active?
+
+        What roles has the EC2 instance assumed?
+
+Role session
+
+    Instances of a resource that is assuming a role. Each role session is identified by the role identifier and a session name.
+
+    For each role, Detective answers several questions:
+
+        What resources were involved in this role session? In other words, what role was assumed, and what resource assumed the role?
+
+        Note that for cross-account role assumption, Detective cannot identify the resource that assumed the role.
+
+        What API calls has the role session used?
+
+        What user agents has the role session used?
+
+        What ASOs has the role session used?
+
+        In what geographic locations has the role session been active?
+
+        What user or role started this role session?
+
+        What role sessions started from this role session?
+
+Finding
+
+    Findings uncovered by Amazon GuardDuty that are fed into the Detective source data.
+
+    For each finding, Detective tracks the finding type, origin, and the time window for the finding activity.
+
+    It also stores information specific to the finding, such as roles or IP addresses that are involved in the detected activity.
+IP address
+
+    IP addresses that are present in the Detective source data.
+
+    For each IP address, Detective answers several questions:
+
+        What API calls has the address used?
+
+        What ports has the address used?
+
+        What users and user agents have used the IP address?
+
+        In what geographic locations has the IP address been active?
+
+        What EC2 instances has this IP address been assigned to and communicated with?
+
+S3 bucket
+
+    S3 buckets that are in the Detective source data.
+
+    For each S3 bucket, Detective answers these questions:
+
+        What principals interacted with the S3 bucket?
+
+        What API calls were made to the S3 bucket?
+
+        From what geographic locations did principals make API calls to the S3 bucket?
+
+        What user agents were used to interact with the S3 bucket?
+
+        What ASOs were used to interact with the S3 bucket?
+
+    You can delete an S3 bucket and then create a new bucket with the same name. Because Detective uses the S3 bucket name to identify the S3 bucket, it treats these as a single S3 bucket entity. On the entity profile, Creation time is the first creation time. Deletion time is the most recent deletion time.
+
+    To view all of the creation and deletion events, set the scope time to start with the creation time and end with the deletion time. On the Overall API call volume profile panel, display the activity details for the scope time. Filter the API methods to show Create and Delete methods. See Activity details for Overall API call volume.
+User agent
+
+    User agents that are present in the Detective source data.
+
+    For each user agent, Detective answers questions such as the following:
+
+        What API calls has the user agent used?
+
+        What users and roles have used the user agent?
+
+        What IP addresses have used the user agent?
+
+EKS Cluster
+
+    EKS clusters that are present in the Detective source data.
+
+    Note
+
+    To see complete details for this entity type the optional EKS audit logs data source must be enabled. For more info see Optional data sources
+
+    For each EKS cluster, Detective answers questions such as the following:
+
+        What Kubernetes API calls have been run in this cluster?
+
+        What Kubernetes users and service accounts (subjects) are active in this cluster?
+
+        What containers have been launched in this cluster?
+
+        What images are used to launch containers in this cluster?
+
+Kubernetes Pod
+
+    Kubernetes pods that are present in the Detective source data.
+    Note
+
+    To see complete details for this entity type the optional EKS audit logs data source must be enabled. For more info see Optional data sources
+
+    For each pod, Detective answers questions such as the following:
+
+        What container images in this pod are common in my accounts?
+
+        What activity has been directed at this pod?
+
+        What containers run in this pod?
+
+        Are registries from containers in this pod common in my accounts?
+
+        What other containers are running in the other pods of the workload?
+
+        Are there any anomalous containers in this pod that are not in the other pods of the workload?
+
+Container Image
+
+    Container images that are present in the Detective source data.
+    Note
+
+    To see complete details for this entity type the optional EKS audit logs data source must be enabled. For more info see Optional data sources
+
+    For each container image, Detective answers questions such as the following:
+
+        What other images in my environment share the same repository or registry with this image?
+
+        How many copies of this image are running in my environment?
+
+Kubernetes Subject
+
+    Kubernetes subjects that are present in the Detective source data. A Kubernetes subject is a user or service account.
+Note
+
+To see complete details for this entity type the optional EKS audit logs data source must be enabled. For more info see Optional data sources
+
+For each subject, Detective answers questions such as the following:
+
+    What IAM principals have authenticated as this subject?
+
+    What findings are associated with this subject?
+
+    What IP addresses is the subject using?
+
+
+Source data used in a Detective behavior graph
+
+To populate a behavior graph, Amazon Detective uses source data from the behavior graph administrator account and member accounts.
+
+With Detective, you can access up to a year of historical event data. This data is available through a set of visualizations that show changes in the type and volume of activity over a selected time window. Detective links these changes to GuardDuty findings.
+Diagram showing how a behavior graph uses data from the administrator account and member accounts, and uses the behavior graph data structure.
+
+For details about the behavior graph data structure, see Overview of the behavior graph data structure in Detective User Guide.
+Types of core data sources in Detective
+
+Detective ingests data from these types of AWS logs:
+
+    AWS CloudTrail logs
+
+    Amazon Virtual Private Cloud (Amazon VPC) flow logs
+
+        Ingests both IPv4 and IPv6 records, but not MAC records produced by Elastic Fabric Adapters.
+
+        Ingests log records when the value of the log-status field is in OK state. For more information, see Flow log records in the Amazon VPC User Guide.
+
+        Ingests flow logs produced by Amazon Elastic Compute Cloud instances running in those VPCs only. No other resources, such as NAT gateways, RDS instances, or Fargate clusters are used.
+
+        Ingests both accepted and rejected traffic.
+
+    For accounts that are enrolled in GuardDuty, Detective also ingests GuardDuty findings.
+
+Detective consumes CloudTrail and VPC flow log events using independent and duplicative streams of CloudTrail and VPC flow logs. These processes do not affect or use your existing CloudTrail and VPC flow log configurations. They also do not affect the performance of or increase your costs for these services.
+Types of optional data sources in Detective
+
+Detective offers optional source packages in addition to the three data sources offered in the Detective core package (the core package includes AWS CloudTrail logs, VPC Flow logs, and GuardDuty findings). An optional data source package can be started or stopped for a behavior graph at any time.
+
+Detective provides a 30-day free trial for all core and optional source packages per Region.
+Note
+
+Detective retains all data received from each data source package for up to 1 year.
+
+Currently the following optional source packages are available:
+
+    EKS audit logs
+
+    This optional data source package allows Detective to ingest detailed information on EKS clusters in your environment and adds that data to your behavior graph. Detective correlates user activities with AWS CloudTrail Management events and network activity with Amazon VPC Flow Logs without the need for you to enable or store these logs manually. See Amazon EKS audit logs for details.
+
+    AWS security findings
+
+    This optional data source package allows Detective to ingest data from Security Hub and adds that data to your behavior graph. See AWS security findings for details.
+
+Starting or stopping an optional data source:
+
+    Open the Detective console at https://console.aws.amazon.com/detective/
+
+    .
+
+    From the navigation panel under Settings, choose General.
+
+    Under Optional source packages, select Update. Then select the data source you wish to enable or deselect a box for an already enabled data source and choose Update to change which data source packages are enabled.
+
+Note
+
+If you stop and then restart an optional data source you will see a gap in the data displayed on some entity profiles. This gap will be noted in the console display and represent the period of time when the data source was stopped. When a data source is restarted Detective does not retroactively ingest data.
+How Detective ingests and stores source data
+
+When Detective is enabled, Detective begins ingesting source data from the behavior graph administrator account. As member accounts are added to the behavior graph, Detective also begins using the data from those member accounts.
+
+Detective source data consists of structured and processed versions of the original feeds. To support Detective analytics, Detective stores copies of the Detective source data.
+
+The Detective ingest process feeds data into Amazon Simple Storage Service (Amazon S3) buckets in the Detective source data store. As new source data arrives, other Detective components pick up the data and start the extraction and analytics processes. For more information, see How Detective uses source data to populate a behavior graph in Detective User Guide.
+How Detective enforces the data volume quota for behavior graphs
+
+Detective has strict quotas on the volume of data it allows in each behavior graph. The data volume is the amount of data per day that flows into the Detective behavior graph.
+
+Detective enforces these quotas when an administrator account enables Detective, and when a member account accepts an invitation to contribute to a behavior graph.
+
+    If the data volume for an administrator account exceeds 10 TB per day, then the administrator account cannot enable Detective.
+
+    If the added data volume from a member account would cause the behavior graph to exceed 10 TB per day, the member account cannot be enabled.
+
+The data volume for a behavior graph also can grow naturally over time. Detective checks the behavior graph data volume each day to make sure that it does not exceed the quota.
+
+If the behavior graph data volume is approaching the quota, Detective displays a warning message on the console. To avoid exceeding the quota, you can remove member accounts.
+
+If the behavior graph data volume exceeds 10 TB per day, then you cannot add a new member account to the behavior graph.
+
+If the behavior graph data volume exceeds 15 TB per day, then Detective stops ingesting data into the behavior graph. The 15 TB per day quota reflects both normal data volume and spikes in the data volume. When this quota is reached, no new data is ingested into the behavior graph, but existing data is not removed. You can still use that historical data for investigation. The console displays a message to indicate that the data ingest is suspended for the behavior graph.
+
+If the data ingest is suspended, you must work with Support to get it re-enabled. If possible, before you contact Support, try to remove member accounts to get the data volume below the quota. This makes it easier to re-enable the data ingest for the behavior graph.
+
+Amazon EKS audit logs is an optional data source package that can be added to your Detective behavior graph. You can view the available optional source packages, and their status in your account, from the Settings page in the console or through the Detective API.
+
+A 30 day free trial is provided for this data source. To learn more see Free trial for optional data sources.
+
+Enabling Amazon EKS audit logs allows Detective to add in-depth information about resources created with Amazon EKS to your behavior graph. This data source enhances the information provided about the following entity types: EKS Cluster, Kubernetes Pod, Container Image and Kubernetes subject.
+
+Additionally, If you have enabled EKS audit logs as a data source in Amazon GuardDuty you will be able to see details for Kubernetes findings from GuardDuty. For more info on enabling this data source in GuardDuty see Kubernetes protection in Amazon GuardDuty.
+Note
+
+This data source is enabled by default for new behavior graphs created after July 26, 2022. For behavior graphs created before July 26, 2022 it must be enabled manually.
+Adding or removing Amazon EKS audit logs as an optional data source:
+
+    Open the Detective console at https://console.aws.amazon.com/detective/
+
+.
+
+From the navigation panel under Settings, choose General.
+
+Under Source packages, select EKS audit logs to enable this data source. If it is already enabled, select it again to stop ingesting EKS audit logs into your behavior graph.
+
+
+AWS security findings is an optional data source package that can be added to your Detective behavior graph.
+
+You can view the available optional source packages, and their status in your account, from the Settings page in the console or through the Detective API.
+
+A 30 day free trial is provided for this data source. To learn more see Free trial for optional data sources.
+
+Enabling AWS security findings allows Detective to use the findings from Security Hub aggregated by Security Hub from upstream services in a standard findings format called the AWS Security Format (ASFF), which eliminates the need for time-consuming data conversion efforts. Then it correlates ingested findings across products to prioritize the most important ones.
+Adding or removing AWS security findings as an optional data source:
+Note
+
+The AWS security findings data source is enabled by default for new behavior graphs created after May 16, 2023. For behavior graphs created before May 16, 2023 it must be enabled manually.
+
+    Open the Detective console at https://console.aws.amazon.com/detective/
+
+    .
+
+    From the navigation panel under Settings, choose General.
+
+    Under Source packages, select AWS security findings to enable this data source. If it is already enabled, select it again to stop ingesting AWS Security Finding Format (ASFF) findings into your behavior graph.
+
+Currently supported findings
+
+Detective ingests all ASFF findings in Security Hub from services that are owned by Amazon or AWS.
+
+    To see the list of supported service integrations, see Available AWS service integrations in the AWS Security Hub User Guide.
+
+    For the list of supported resources, see Resources in the AWS Security Hub User Guide.
+
+    AWS Service Findings with a Compliance status not set to FAILED and cross-Region aggregated findings are not ingested.
+
+Use the Summary dashboard in Amazon Detective to identify entities to investigate the origin of activity during the previous 24 hours. The Amazon Detective Summary dashboard helps you to identify entities that are associated with specific types of unusual activity. It is one of several possible starting points for an investigation.
+
+To display the Summary dashboard, in the Detective navigation pane, choose Summary. The Summary dashboard is also displayed by default when you first open the Detective console.
+
+From the Summary dashboard, you can identify entities that meet the following criteria:
+
+    Investigations that show potential security events identified by Detective
+
+    Entities involved in activity that occurred in newly observed geolocations
+
+    Entities that made the largest number of API calls
+
+    EC2 instances that had the largest volume of traffic
+
+    Container clusters that had the largest number of containers
+
+From each Summary dashboard panel, you can pivot to the profile for a selected entity.
+
+As you review the Summary dashboard, you can adjust the Scope time to view the activity for any 24-hour time frame in the previous 365 days. When you change the Start date and time, the End date and time is automatically updated to 24 hours after your chosen start time.
+
+With Detective, you can access up to a year of historical event data. This data is available through a set of visualizations that show changes in the type and volume of activity over a selected time window. Detective links these changes to GuardDuty findings.
+
+For more information about source data in Detective, see Source data used in a behavior graph.
+Investigations
+
+Investigations shows you the potential security events identified by Detective. On the Investigations panel, you can view Critical investigations and the corresponding AWS roles and users that were impacted by security events over a set period of time. Investigations groups together indicators of compromise to help determine if a AWS resource is involved in unusual activity that could indicate malicious behavior and its impact.
+
+Select View all investigations to review findings, triage finding groups, and resource details to accelerate your security investigation. Investigations are displayed depending on the selected Scope time. You can adjust the scope time to view investigations in a 24-hour time frame in the previous 365 days. You can pivot directly to Critical investigations to see a detailed investigation report.
+
+If you identify a AWS role or user that seems to have suspicious activity, you can pivot directly from the Investigations panel to the role or user to continue your investigation. Pivot to a role or user and click Run investigation to generate an investigations report. Once you run an investigation on a role or user, the role or user is moved to the Investigated tab.
+Newly observed geolocations
+
+Newly observed geolocations highlights geographic locations that were the origin of activity during the previous 24 hours, but that were not seen during the baseline time period before that.
+
+The panel includes up to 100 geolocations. The locations are marked on the map and listed in the table below the map.
+
+For each geolocation, the table displays the number of failed and successful API calls made from that geolocation during the previous 24 hours.
+
+You can expand each geolocation to display the list of users and roles that made API calls from that geolocation. For each principal, the table lists the type and the associated AWS account.
+
+If you identify a user or role that seems suspicious, then you can pivot directly from the panel to the user or role profile to continue your investigation. To pivot to a profile, choose the user or role identifier.
+
+Detective determines the location of requests using MaxMind GeoIP databases. MaxMind reports very high accuracy of their data at the country level, although accuracy varies according to factors such as country and type of IP. For more information about MaxMind, see MaxMind IP Geolocation
+. If you think any of the GeoIP data is incorrect, you can submit a correction request to Maxmind at MaxMind Correct GeoIP2 Data
+
+.
+Active finding groups in the last 7 days
+
+Active finding groups in the last 7 days shows you correlated groupings of Detective findings, entities, and evidence in your environment that occurred over a set period of time. These groupings correlate unusual activity that could indicate malicious behavior. The summary dashboard shows up to five groups sorted by the groups containing the most critical findings that have been active in the last week.
+
+You can select values in the Tactic, Account, Resource, and Findings content to see more details.
+
+Findings groups are generated on a daily basis. If you identify a finding group of interest, you can select the title to move to a detailed view of a group profile to continue your investigation.
+Roles and users with the most API call volume
+
+Roles and users with the most API call volume identifies the users and roles that have made the largest number of API calls during the previous 24 hours.
+
+The panel can include up to 100 users and roles. For each user or role, you can see the type (user or role) and the associated account. You can also see the number of API calls issued by that user or role during the previous 24 hours.
+
+By default, service-linked roles are displayed. Service-linked roles can produce large volumes of AWS CloudTrail activity, which displaces the principals that you want to investigate further. You can choose to turn off Show service-linked roles, to filter out service-linked roles from the summary dashboard view.
+
+You can export a comma-separated values (.csv) file that contains the data in this panel. .
+
+There is also a timeline of the API call volume for the previous 7 days. The timeline can help you to determine whether the volume of API calls is unusual for that principal.
+
+If you identify a user or role for which the API call volume seems suspicious, then you can pivot directly from the panel to the user or role profile to continue your investigation. You can also view the profile of the account associated with the user or role. To view a profile, choose the user, role, or account identifier.
+EC2 instances with the most traffic volume
+
+EC2 instances with the most traffic volume identifies the EC2 instances that have had the largest total volume of traffic during the previous 24 hours.
+
+The panel can include up to 100 EC2 instances. For each EC2 instance, you can see the associated account and the number of inbound bytes, outbound bytes, and total bytes from the previous 24 hours.
+
+You can export a comma-separated values (.csv) file that contains the data in this panel.
+
+You can also see a timeline showing the inbound and outbound traffic over the previous 7 days. The timeline can help determine whether the volume of traffic is unusual for that EC2 instance.
+
+If you identify an EC2 instance that has suspicious traffic volume, then you can go directly from the panel to the EC2 instance profile to continue your investigation. You can also view the profile of the account that owns the EC2 instance. To view a profile, choose the EC2 instance or account identifier.
+Container clusters with the most Kubernetes pods
+
+Container clusters with the most Kubernetes pods created identifies the clusters that have had the most containers running during the previous 24 hours.
+
+This panel includes up to 100 clusters organized by which clusters had the most findings associated with them. For each cluster you can see the associated account, the current number of containers in that cluster, and the number of findings associated with that cluster over the last 24 hours. You can export a comma-separated values (.csv) file that contains the data in this panel.
+
+If you identify a cluster with recent findings you can pivot directly from the panel to the cluster profile to continue your investigation. You can also pivot to the profile of the account that owns the cluster. To pivot to a profile, choose the cluster name or account identifier.
+Approximate value notification
+
+On Roles and users with the most API call volume and EC2 instances with the most traffic volume, if a value is followed by an asterisk (*), it means that the value is an approximation. The true value is either equal to or greater than the displayed value.
+
+This occurs because of the method that Detective uses to calculate the volume for each time interval. On the Summary page, the time interval is an hour.
+
+For each hour, Detective calculates the total volume for the 1,000 users, roles, or EC2 instances with the largest volume. It excludes the data for the remaining users, roles, or EC2 instances.
+
+If a resource was sometimes in the top 1,000 and sometimes not, then the calculated volume for that resource might not include all of the data. The data for the time intervals where it was not in the top 1,000 is excluded.
+
+Note that this only applies to the Summary page. The profile for the user, role, or EC2 instance provides precise details.
+
+Amazon Detective makes it easy to analyze, investigate, and quickly identify the root cause of security findings or suspicious activity. Detective provides tools to support the overall investigation process. An investigation in Detective can start from a finding, a finding group, or an entity.
+Investigation phases in Detective
+
+Any Detective investigation process involves the following phases:
+
+Triage
+
+    The investigation process starts when you are notified about a suspected instance of malicious or high-risk activity. For example, you are assigned to look into findings or alerts uncovered by services such as Amazon GuardDuty and Amazon Inspector.
+
+    In the triage phase, you determine whether you believe the activity is a true positive (genuine malicious activity) or false positive (not malicious or high-risk activity). Detective profiles support the triage process by providing insight into the activity for the involved entity.
+
+    For true positive instances, you continue to the next phase.
+Scoping
+
+    During the scoping phase, analysts determine the extent of the malicious or high-risk activity and the underlying cause.
+
+    Scoping answers the following types of questions:
+
+        What systems and users were compromised?
+
+        Where did the attack originate?
+
+        How long has the attack been going on?
+
+        Is there other related activity to uncover? For example, if an attacker is extracting data from your system, how did they obtain it?
+
+    Detective visualizations can help you to identify other entities that were involved or affected.
+Response
+
+    The final step is to respond to the attack in order to stop the attack, minimize the damage, and prevent a similar attack from happening again.
+
+Starting points for a Detective Investigation
+
+Every investigation in Detective has an essential starting point. For example, you might be assigned an Amazon GuardDuty or AWS Security Hub finding to investigate. Or you might have a concern about unusual activity for a specific IP address.
+
+Typical starting points for an investigation include findings detected by GuardDuty and entities extracted from Detective source data.
+Findings detected by GuardDuty
+
+GuardDuty uses your log data to uncover suspected instances of malicious or high-risk activity. Detective provides resources that help you investigate these findings.
+
+For each finding, Detective provides the associated finding details. Detective also shows the entities, such as IP addresses and AWS accounts, that are connected to the finding.
+
+You can then explore the activity for the involved entities to determine whether the detected activity from the finding is a genuine cause for concern.
+
+For more information, see Analyzing a finding overview in Detective.
+AWS security findings aggregated by Security Hub
+
+AWS Security Hub aggregates security findings from various findings providers in a single place, and provides you with a comprehensive view of your security state in AWS. Security Hub eliminates the complexity of addressing large volumes of findings from multiple providers. It reduces the effort required to manage and improve the security of all of your AWS accounts, resources, and workloads. Detective provides resources that help you investigate these findings.
+
+For each finding, Detective provides the associated finding details. Detective also shows the entities, such as IP addresses and AWS accounts, that are connected to the finding.
+
+For more information, see Analyzing a finding overview in Detective.
+Entities extracted from Detective source data
+
+From the ingested Detective source data, Detective extracts entities such as IP addresses and AWS users. You can use one of these as an investigation starting point.
+
+Detective provides general details about the entity, such as the IP address or user name. It also provides details on activity history. For example, Detective can report what other IP addresses an entity has connected to, been connected to, or used.
+
+For more information, see Analyzing entities in Amazon Detective.
+Detective Investigation flow
+
+You can use Amazon Detective to investigate an entity such as an EC2 instance or an AWS user. You can also investigate security findings.
+
+At a high level, the following image shows the process for a Detective Investigation.
+Diagram that shows the Detective Investigation process.
+
+Step 1: Select the entity to investigate
+
+    When looking at a finding in GuardDuty, analysts can choose to investigate an associated entity in Detective. See Pivoting to an entity profile or finding overview from Amazon GuardDuty or AWS Security Hub.
+
+    Selecting the entity takes you to the entity profile in Detective.
+Step 2: Analyze visualizations on profiles
+
+    Each entity profile contains a set of visualizations that are generated from the behavior graph. The behavior graph is created from the log files and other data that are fed into Detective.
+
+    The visualizations show activity that is related to an entity. You use these visualizations to answer questions to determine whether the entity activity is unusual. See Analyzing entities in Amazon Detective.
+
+    To help guide the investigation, you can use the Detective guidance provided for each visualization. The guidance outlines the displayed information, suggests questions for you to ask, and proposes next steps based on the answers. See Using profile panel guidance during an investigation.
+
+    Each profile contains a list of associated findings. You can view the details for a finding, and view the finding overview. See Viewing details for associated findings in Detective.
+
+    From an entity profile, you can pivot to other entity and finding profiles, to investigate further into activity for related assets.
+Step 3: Take action
+
+    Based on the results of your investigation, take the appropriate action.
+
+    For a finding that is a false positive, you can archive the finding. From Detective, you can archive GuardDuty findings. For more details, see Archiving an Amazon GuardDuty finding.
+
+    Otherwise, you take the appropriate action to address the vulnerability and mitigate damage. For example, you might need to update the configuration of a resource.
+
+You can use Amazon Detective Investigation to investigate IAM users and IAM roles using indicators of compromise, which can help you determine if a resource is involved in a security incident. An indicator of compromise (IOC) is an artifact observed in or on a network, system, or environment that can (with a high level of confidence) identify malicious activity or a security incident. With Detective Investigations you can maximize efficiency, focus on the security threats, and strengthen incidence response capabilities.
+
+Detective Investigation uses machine learning models and threat intelligence to automatically analyze resources in your AWS environment to identify potential security incidents. It lets you proactively, effectively, and efficiently use automation built on top of Detective’s behavioral graph to improve security operations. Using Detective Investigation you can investigate attack tactics, impossible travel, ﬂagged IP addresses, and ﬁnding groups. It performs initial security investigation steps and generates a report highlighting the risks identified by Detective, to help you understand security events and respond to potential incidents.
+Topics
+
+    Running a Detective Investigation
+    Reviewing Detective Investigations reports
+    Understanding a Detective Investigations report
+    Detective Investigations report summary
+    Downloading a Detective Investigations report
+    Archiving a Detective Investigations report
+
+Follow these steps to run a Detective Investigation from the Investigations page using the Amazon Detective console.
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+.
+
+In the navigation pane, choose Investigations.
+
+In the Investigations page, choose Run investigation in the top right corner.
+
+In the Select resource section, you have three ways to run an investigation. You can choose to run the investigation for a resource recommended by Detective. You can run the investigation for a specific resource. You can also investigate a resource from the Detective Search page.
+
+    Choose a recommended resource – Detective recommends resources based on its activity in findings and finding groups. To run the investigation for a resource recommended by Detective, in the Recommended resources table, select a resource to investigate.
+
+    The Recommended resources table provides the following details:
+
+        Resource ARN – The Amazon Resource Name (ARN) of the AWS resource.
+
+        Reason to investigate – Displays the key reason(s) to investigate the resource. The reasons for which Detective recommends to investigate a resource are as follows:
+
+            If a resource was involved in a High Severity finding in the last 24 hours.
+
+            If a resource was involved in a finding group observed in the last 7 days. Detective finding groups let you examine multiple activities as they relate to a potential security event. For more details, see Analyzing finding groups.
+
+            If a resource was involved in a finding in the last 7 days.
+
+        Latest finding – Latest findings are prioritized on top of the list.
+
+        Resource type – Identifies the type of resource. For example, an AWS user or AWS role.
+
+    Specify an AWS role or user with an ARN – You can select an AWS role or AWS user and run an investigation for the specific resource.
+
+    Follow these steps to investigate a specific resource type.
+
+        From the Select resource type drop-down list, choose AWS role or AWS user.
+
+        Enter the Resource ARN of the IAM resource. For more details about Resource ARNs, see Amazon Resource Names (ARNs) in the IAM User Guide.
+
+    Find a resource to investigate from the Search page – You can search all of your IAM resources from the Detective Search page.
+
+    Follow these steps to investigate a resource from the Search page.
+
+        In the navigation pane, choose Search.
+
+        In the Search page, search for an IAM resource.
+
+        Navigate to the profile page of the resource and run investigation from there.
+
+In the Investigation scope time section, choose the Scope time for the investigation to assess the selected resource's activity. You can select a Start date and Start time; and End date and End time in UTC format. The selected scope time window can be between at a minimum of 3 hours and a maximum of 30 days.
+
+Choose Run investigation.
+
+To run an investigation programmatically, use the StartInvestigation operation of the Detective API. To run an investigation using the AWS Command Line Interface (AWS CLI) run the start-investigation
+
+command.
+
+In your request, use these parameters to run an investigation in Detective:
+
+    GraphArn – Specify the Amazon Resource Name (ARN) of the behavior graph.
+
+    EntityArn – Specify the unique Amazon Resource Name (ARN) of the IAM user and IAM role.
+
+    ScopeStartTime – Optionally, specify the data and time from which the investigation should begin. The value is an UTC ISO8601 formatted string. For example, 2021-08-18T16:35:56.284Z.
+
+    ScopeEndTime – Optionally, specify the data and time when the investigation should end. The value is an UTC ISO8601 formatted string. For example, 2021-08-18T16:35:56.284Z.
+
+This example is formatted for Linux, macOS, or Unix, and it uses the backslash (\) line-continuation character to improve readability.
+
+aws detective start-investigation \
+--graph-arn arn:aws:detective:us-east-1:123456789123:graph:fdac8011456e4e6182facb26dfceade0
+ --entity-arn arn:aws:iam::123456789123:role/rolename --scope-start-time 2023-09-27T20:00:00.00Z 
+--scope-end-time 2023-09-28T22:00:00.00Z
+
+Investigations reports lets you review the generated Reports for investigations that you have run previously in Detective.
+
+To review investigations reports
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+    .
+
+    In the navigation pane, choose Investigations.
+
+Take note of the following attributes from an investigations report.
+
+    ID – The generated identifier of the investigations report. You can choose this ID to read a summary of the investigation report, which has the details of the investigation.
+
+    Status – Each investigation is associated with a Status based on the completion status of the investigation. Status values can be In progress, Succeeded, or Failed.
+
+    Severity – Each investigation is assigned a Severity. Detective automatically assigns a severity to the finding.
+
+    A severity represents the disposition as analyzed by the investigation of a single resource at a given scope time. A severity reported by an investigation doesn't imply or otherwise indicate the criticality or importance that an affected resource might have for your organization.
+
+    Investigation severity values can be Critical, High, Medium, Low, or Informational from most to least severe.
+
+    Investigations that are assigned a Critical or High severity value should be prioritized for further inspection, as they are more likely to represent high-impact security issues identified by Detective.
+
+    Entity – The Entity column contains details on the specific entities detected in the investigation. Some entities are AWS accounts, such as user and role.
+
+    Status – The Creation date column contains details on the date and time the investigation report was first created.
+
+A Detective Investigations report lists a summary of the uncommon behavior or malicious activity that indicates compromise. It also lists the recommendations that Detective suggests to mitigate the security risk.
+
+To view an investigations report for a specific investigation ID.
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+    .
+
+    In the navigation pane, choose Investigations.
+
+    In the Reports table, select an investigation ID.
+
+Investigations reports lets you review the generated Reports for investigations that you have run previously in Detective.
+
+Detective generates the report for the selected Scope time and User. The report contains an Indicators of Compromise section that includes details regarding one or more of the indicators of compromise listed below. As you review each indicator of compromise, optionally choose an item to drill down and review its details.
+
+    Tactics. Techniques, and Procedures – Identifies tactics, techniques, and procedures (TTPs) used in a potential security event. The MITRE ATT&CK framework is used to understand the TTPs. Tactics are based on the MITRE ATT&CK matrix for Enterprise
+
+.
+
+Threat Intelligence Flagged IP Addresses – Suspicious IP addresses are flagged and identified as critical or severe threats based on Detective threat intelligence.
+
+Impossible Travel – Detects and identifies unusual and impossible user activity for an account. For example, this indicator lists a drastic change between source to destination location of a user within a short time span.
+
+Related Finding Group – Shows multiple activities as they relate to a potential security event. Detective uses graph analysis techniques that infers relationships between findings and entities, and groups them together as a finding group.
+
+Related Findings – Related activities associated with a potential security event. Lists all distinct categories of evidence that are connected to the resource or the finding group.
+
+New Geolocations – Identifies new geolocations used either at the resource or account level. For example, this indicator lists an observed geolocation that is an infrequent or unused location based on previous user activity.
+
+New User Agents – Identifies new user agents used either at the resource or account level.
+
+New ASOs – Identifies new Autonomous System Organizations (ASOs) used either at the resource or account level. For example, this indicator lists a new organization assigned as an ASO.
+
+Investigations summary highlights anomalous indicators that require attention, for the selected scope time. Using the summary, you can more quickly identify the root cause of potential security issues, identify patterns, and understand the resources impacted by security events.
+
+In the detailed investigations report summary, you can view the following details.
+
+Investigations overview
+
+In the Overview panel, you can see a visualization of IPs with high severity activity, which can give more context on the pathway of an attacker.
+
+Detective highlights Unusual activity in the investigation, for example impossible travel from a source to a faraway destination by the IAM user.
+
+Detective maps the investigations to tactics, techniques, and procedures (TTPs) used in a potential security event. The MITRE ATT&CK framework is used to understand the TTPs. Tactics are based on the MITRE ATT&CK matrix for Enterprise
+
+.
+
+Investigations indicators
+
+You can use the information in the Indicators pane, to determine if an AWS resource is involved in unusual activity that could indicate malicious behavior and its impact. An indicator of compromise (IOC) is an artifact observed in or on a network, system, or environment that can (with a high level of confidence) identify malicious activity or a security incident.
+
+Investigations summary highlights anomalous indicators that require attention, for the selected scope time. Using the summary, you can more quickly identify the root cause of potential security issues, identify patterns, and understand the resources impacted by security events.
+
+In the detailed investigations report summary, you can view the following details.
+
+Investigations overview
+
+In the Overview panel, you can see a visualization of IPs with high severity activity, which can give more context on the pathway of an attacker.
+
+Detective highlights Unusual activity in the investigation, for example impossible travel from a source to a faraway destination by the IAM user.
+
+Detective maps the investigations to tactics, techniques, and procedures (TTPs) used in a potential security event. The MITRE ATT&CK framework is used to understand the TTPs. Tactics are based on the MITRE ATT&CK matrix for Enterprise
+
+.
+
+Investigations indicators
+
+You can use the information in the Indicators pane, to determine if an AWS resource is involved in unusual activity that could indicate malicious behavior and its impact. An indicator of compromise (IOC) is an artifact observed in or on a network, system, or environment that can (with a high level of confidence) identify malicious activity or a security incident.
+
+You can download the Detective Investigations report in JSON format, to analyze it further or store it to your preferred storage solution such as an Amazon S3 bucket.
+To download an investigations report from the Reports table.
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+    .
+
+    In the navigation pane, choose Investigations.
+
+    Select an investigation, from the Reports table, and choose Download.
+
+To download an investigations report from the summary page.
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+.
+
+In the navigation pane, choose Investigations.
+
+Select an investigation, from the Reports table.
+
+In the investigations summary page, choose Download.
+
+When you complete your investigation in Amazon Detective, you can Archive the investigation report. An archived investigation indicates you have completed reviewing the investigation.
+
+You can archive or unarchive an investigation only if you are a Detective Administrator. Detective will store your archived investigations for 90 days.
+To archive an investigations report from the Reports table.
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+    .
+
+    In the navigation pane, choose Investigations.
+
+    Select an investigation, from the Reports table, and choose Archive.
+
+To archive an investigations report from the summary page.
+
+    Sign in to the AWS Management Console. Then open the Detective console at https://console.aws.amazon.com/detective/
+
+.
+
+In the navigation pane, choose Investigations.
+
+Select an investigation, from the Reports table.
+
+In the investigations summary page, choose Archive.
+
+
